@@ -1,0 +1,15 @@
+Package: base.plus
+Title: What the Package Does (one line, title case)
+Description: What the package does (one paragraph).
+Version: 0.0.0.9000
+Authors@R:
+  c(person("Ryan", "Price", email = "ryapric@gmail.com", role = c("aut", "cre")))
+Depends: R (>= 3.5.0)
+Suggests:
+  devtools,
+  testthat
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
