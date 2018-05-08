@@ -5,6 +5,6 @@
 #'   [setdiff()][base::setdiff()], see [symdiff()] in this package.
 #'
 #' @export
-`%not.in%` <- function(x, y) {
+`%not_in%` <- function(x, y) {
   !(x %in% y)
 }
