@@ -1,10 +1,14 @@
 Package: base.plus
-Title: What the Package Does (one line, title case)
-Description: What the package does (one paragraph).
+Title: Additions to Base R
+Description:
+    This package provides a library of R functions, operators, and
+    utilities that extend base R with "quality of life" improvements. This
+    package has no external dependencies, as it is ony designed to extend
+    functions included with the base R distribution.
 Version: 0.1.0
 Authors@R:
   c(person("Ryan", "Price", email = "ryapric@gmail.com", role = c("aut", "cre")))
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.4.0)
 Suggests:
   devtools,
   testthat

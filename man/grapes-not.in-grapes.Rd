@@ -2,10 +2,15 @@
 % Please edit documentation in R/operators.R
 \name{\%not.in\%}
 \alias{\%not.in\%}
-\title{"not in"}
+\title{Which elements of X are "not in" Y?}
 \usage{
 x \%not.in\% y
 }
+\arguments{
+\item{x, y}{Vectors to compare. Order matters, just like when using
+\link[base:match]{\%in\%}; for a symmetric version of
+\link[base:setdiff]{setdiff()}, see \code{\link[=symdiff]{symdiff()}} in this package.}
+}
 \description{
-"not in"
+Which elements of X are "not in" Y?
 }
