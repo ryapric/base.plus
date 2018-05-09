@@ -75,15 +75,32 @@ find_replace <- function(pattern, replacement, proj_dir = here::here(), ...) {
   } else if (confirm == "yes, please") {
     for (f in proj_files) {
       oldfile <- readLines(f)
-      newfile <- gsub(pattern, replacement, oldfile,
-                      ignore.case = ignore.case,
-                      perl = perl,
-                      fixed = fixed,
-                      useBytes = useBytes)
+      newfile <- gsub(pattern, replacement, oldfile, ...)
       writeLines(newfile, con = f, sep = "\n")
     }
   } else if (confirm == "no") {
     base::message("Aborting.")
   }
 
+}
+
+
+
+#' Lightweight Locator for Package Files
+#'
+#' Yadda. Add details.
+#'
+#' @param file_spec File specification
+#'
+#' @examples
+#'  \donttest{system_file("mypackage::shell/someShellScript.sh")}
+#'
+#' @export
+system_file <- function(file_spec) {
+  file_spec <- unlist(strsplit(file_spec, split = "::"))
+
+  package <- file_spec[1]
+  inst_file <- file_spec[2]
+
+  system.file(inst_file, package = package, mustWork = TRUE)
 }
