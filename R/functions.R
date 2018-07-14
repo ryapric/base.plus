@@ -9,7 +9,7 @@
 #'
 #' @export
 is_equal <- function(x, y, tol = .Machine$double.eps) {
-  abs(x - y) < tol
+    abs(x - y) < tol
 }
 
 
@@ -23,8 +23,8 @@ is_equal <- function(x, y, tol = .Machine$double.eps) {
 #'
 #' @export
 symdiff <- function(x, y) {
-  sort(c(setdiff(x, y),
-         setdiff(y, x)))
+    sort(c(setdiff(x, y),
+           setdiff(y, x)))
 }
 
 # Placeholder for pre-R-3.5 isFALSE
@@ -54,33 +54,31 @@ symdiff <- function(x, y) {
 #'
 #' @export
 find_replace <- function(pattern, replacement, proj_dir = here::here(), ...) {
+    proj_files <- dir(proj_dir, recursive = TRUE, full.names = TRUE)
 
-  proj_files <- dir(proj_dir, recursive = TRUE, full.names = TRUE)
+    # Need this for testthat to run
+    if (testthat::is_testing())
+        confirm <- "yes, please"
+    else
+        confirm <- readline(prompt = sprintf(paste0("\n",
+                                                    "Replace:       '%s'\n",
+                                                    "With:          '%s'\n",
+                                                    "In directory:  '%s'\n\n",
+                                                    "Ok? ('yes, please'/'no')\n"),
+                                             pattern, replacement, proj_dir))
 
-
-  # Need this for testthat to run
-  if (testthat::is_testing())
-    confirm <- "yes, please"
-  else
-    confirm <- readline(prompt = sprintf(paste0("\n",
-                                                "Replace:       '%s'\n",
-                                                "With:          '%s'\n",
-                                                "In directory:  '%s'\n\n",
-                                                "Ok? ('yes, please'/'no')\n"),
-                                         pattern, replacement, proj_dir))
-
-  # Strict confirmation
-  if (!(confirm %in% c("yes, please", "no"))) {
-    stop("Please type 'yes, please' or 'no' exactly to confirm. Aborting")
-  } else if (confirm == "yes, please") {
-    for (f in proj_files) {
-      oldfile <- readLines(f)
-      newfile <- gsub(pattern, replacement, oldfile, ...)
-      writeLines(newfile, con = f, sep = "\n")
+    # Strict confirmation
+    if (!(confirm %in% c("yes, please", "no"))) {
+        stop("Please type 'yes, please' or 'no' exactly to confirm. Aborting")
+    } else if (confirm == "yes, please") {
+        for (f in proj_files) {
+            oldfile <- readLines(f)
+            newfile <- gsub(pattern, replacement, oldfile, ...)
+            writeLines(newfile, con = f, sep = "\n")
+        }
+    } else if (confirm == "no") {
+        base::message("Aborting.")
     }
-  } else if (confirm == "no") {
-    base::message("Aborting.")
-  }
 
 }
 
@@ -97,10 +95,8 @@ find_replace <- function(pattern, replacement, proj_dir = here::here(), ...) {
 #'
 #' @export
 system_file <- function(file_spec) {
-  file_spec <- unlist(strsplit(file_spec, split = "::"))
-
-  package <- file_spec[1]
-  inst_file <- file_spec[2]
-
-  system.file(inst_file, package = package, mustWork = TRUE)
+    file_spec <- unlist(strsplit(file_spec, split = "::"))
+    package <- file_spec[1]
+    inst_file <- file_spec[2]
+    system.file(inst_file, package = package, mustWork = TRUE)
 }
